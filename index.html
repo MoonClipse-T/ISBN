@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>독후감 확인</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Gothic+A1:wght@400;500;700&display=swap">
+<style>
+/* 콘셉트: 오래된 도서관 카드목록함. 검색 결과는 목록카드, 판정은 고무도장.
+   일부러 밝은 종이 한 가지 테마로만 만듦. */
+/* 국립박물관문화재단 클래식체(안심글꼴): 제목·도장에 쓰는 글자만 잘라 넣음.
+   ponytail: 고정 문구에 새 글자를 쓰면 그 글자는 나눔명조로 보임. 글꼴을 다시 잘라야 함. */
+@font-face { font-family: "Museum Classic"; font-weight: 700; src: url(data:font/woff2;base64,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) format("woff2"); }
+:root {
+  color-scheme: light;
+  --wood: #2a1d14;      /* 목록함 나무 */
+  --brass: #b98a3e;     /* 서랍 손잡이 놋쇠 */
+  --room: #e9ece7;      /* 열람실 벽 */
+  --paper: #fffef9;     /* 목록카드 */
+  --ink: #1f2630;
+  --pencil: #6b7079;
+  --rule-red: #e0807a;  /* 목록카드 머리줄 */
+  --rule-blue: #d7e3ee; /* 목록카드 괘선 */
+  --stamp-ok: #3443a6;  --stamp-warn: #95650f;  --stamp-no: #b3261e;
+  --serif: "Nanum Myeongjo", "Batang", serif;
+  --classic: "Museum Classic", "Nanum Myeongjo", "Batang", serif;
+  --sans: "Gothic A1", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--room); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; }
+
+/* 머리: 카드목록함 사진 */
+.hero { position: relative; min-height: 300px; display: flex; align-items: flex-end; color: var(--paper);
+  background: var(--wood) url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Card_catalogue_drawers.jpg/1920px-Card_catalogue_drawers.jpg") center 40% / cover no-repeat; }
+.hero::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(42,29,20,.15) 0%, rgba(42,29,20,.55) 55%, rgba(42,29,20,.92) 100%); }
+.hero-in { position: relative; width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px 76px; }
+h1 { margin: 0; font-family: var(--classic); font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: 1.05; letter-spacing: -0.02em; }
+.hero p { margin: 12px 0 0; max-width: 34em; font-size: 16px; color: rgba(255,254,249,.86); }
+.credit { font-size: 12px; color: var(--pencil); padding-top: 8px; }
+.credit a { color: inherit; }
+
+main { max-width: 760px; margin: -52px auto 0; padding: 0 20px 72px; position: relative; display: grid; gap: 28px; }
+
+/* 목록카드 공통 모양: 머리 빨간 줄 + 아래 가운데 구멍 */
+.card { position: relative; background: var(--paper); border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 10px 26px -12px rgba(42,29,20,.35); }
+.card::after { content: ""; position: absolute; left: 50%; bottom: 10px; width: 12px; height: 12px; margin-left: -6px;
+  border-radius: 50%; background: var(--room); box-shadow: inset 0 1px 2px rgba(0,0,0,.25); }
+
+/* 입력 카드: 괘선 위에 쓰기 */
+.entry { padding: 18px 22px 34px; }
+.entry label { display: block; font-family: var(--classic); font-weight: 700; font-size: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--rule-red); }
+textarea { display: block; width: 100%; min-height: 160px; margin: 0; padding: 0 2px; border: 0; outline: 0; resize: vertical;
+  font: 500 18px/32px var(--sans); color: var(--ink); background-color: transparent;
+  background-image: linear-gradient(transparent 31px, var(--rule-blue) 31px); background-size: 100% 32px; background-attachment: local; }
+textarea::placeholder { color: #b4b7bb; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--pencil); }
+kbd { font: 700 12px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid #c9ccc6;
+  border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; margin-right: 4px; }
+button#go { font: 700 16px var(--sans); padding: 12px 28px; border: 0; border-radius: 4px; cursor: pointer;
+  background: var(--wood); color: var(--paper); box-shadow: inset 0 -2px 0 var(--brass); }
+button#go:hover { background: #3a2a1e; }
+button#go:disabled { opacity: .5; cursor: default; }
+:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+#status { font-size: 14px; color: var(--pencil); min-height: 1.6em; margin-top: -16px; }
+
+/* 결과 카드 */
+#out { display: grid; gap: 18px; }
+.result { padding: 18px 22px 36px; display: grid; gap: 4px; min-width: 0; }
+.result h2 { margin: 0 120px 6px 0; padding-bottom: 8px; border-bottom: 2px solid var(--rule-red);
+  font-family: var(--serif); font-weight: 800; font-size: 21px; line-height: 1.35; overflow-wrap: anywhere; }
+.result.pending h2 { color: var(--pencil); }
+.books { list-style: none; margin: 0; padding: 0; }
+.books li { padding: 8px 0 7px; border-bottom: 1px solid var(--rule-blue); min-width: 0; }
+.bt { font-family: var(--serif); font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
+.books li:not(.exact) .bt { color: var(--pencil); }
+.bm { font-size: 13.5px; color: var(--pencil); display: flex; flex-wrap: wrap; gap: 2px 14px; overflow-wrap: anywhere; }
+.isbn { font-variant-numeric: tabular-nums; }
+/* 나이스에 붙여넣을 글자 그대로 보여 주는 복사 쪽지 */
+.neis { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; max-width: 100%; margin-top: 7px;
+  padding: 6px 12px; text-align: left; cursor: copy; font: 600 15px var(--sans); color: var(--ink); overflow-wrap: anywhere;
+  background: #fff; border: 1px solid #c9ccc6; border-bottom-width: 2px; border-radius: 4px; }
+.neis:hover { border-color: var(--stamp-ok); }
+.neis .tag { font-size: 12.5px; font-weight: 700; color: var(--stamp-ok); white-space: nowrap; }
+.neis.copied { border-color: var(--stamp-ok); background: #f1f3fb; }
+.go-site { justify-self: start; margin-top: 8px; font-size: 14px; color: var(--ink); }
+.how { margin: -2px 0 2px; font-size: 13.5px; color: var(--stamp-ok); }
+.empty { margin: 4px 0 0; color: var(--pencil); font-size: 14.5px; }
+
+/* 고무도장 */
+.stamp { position: absolute; top: 14px; right: 18px; transform: rotate(-9deg);
+  font: 700 20px/1 var(--classic); padding: 8px 12px 7px; border: 3px double currentColor; border-radius: 6px;
+  opacity: .88; mix-blend-mode: multiply; white-space: nowrap; }
+.stamp small { display: block; font: 700 11px var(--sans); margin-top: 3px; text-align: center; }
+.stamp.ok { color: var(--stamp-ok); } .stamp.warn { color: var(--stamp-warn); } .stamp.no { color: var(--stamp-no); }
+@media (prefers-reduced-motion: no-preference) {
+  .stamp { animation: thunk .28s cubic-bezier(.2,.9,.3,1.3) both; }
+  @keyframes thunk { from { opacity: 0; transform: rotate(-14deg) scale(1.6); } }
+}
+.wait { position: absolute; top: 20px; right: 22px; font-size: 14px; color: var(--pencil); }
+
+@media (max-width: 520px) {
+  .result h2 { margin-right: 0; margin-top: 46px; }
+  .stamp { top: 12px; left: 18px; right: auto; }
+  .wait { top: 18px; left: 22px; right: auto; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <h1>독후감 확인</h1>
+    <p>아이들이 읽은 책 제목을 적으면 국립중앙도서관 ISBN 목록에서 찾아 드려요.</p>
+  </div>
+</header>
+
+<main>
+  <div class="card entry">
+    <label for="q">찾을 책</label>
+    <textarea id="q" placeholder="아몬드 손원평&#10;어린왕자 생텍쥐페리&#10;완득이" autofocus></textarea>
+  </div>
+  <div class="controls">
+    <div class="keys">
+      <span><kbd>Enter</kbd>바로 찾기</span>
+      <span><kbd>Shift</kbd><kbd>Enter</kbd>한 권 더 적기</span>
+      <span>저자를 쓸 때는 제목과 한 칸만 띄어 주세요. 저자는 몰라도 괜찮아요.</span>
+    </div>
+    <button id="go">찾기</button>
+  </div>
+  <div id="status" aria-live="polite"></div>
+  <section id="out"></section>
+  <footer class="credit">머리 사진: Carolina Prysyazhnyuk, <a href="https://commons.wikimedia.org/wiki/File:Card_catalogue_drawers.jpg" target="_blank" rel="noopener">위키미디어 공용</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>. 검색 자료는 국립중앙도서관 ISBN 서지정보에서 가져와요.</footer>
+</main>
+
+<script>
+const SEARCH = "https://www.nl.go.kr/seoji/contents/S80100000000.do?schType=simple&schFld=title&pageUnit=100&schStr=";
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// 검색은 구글 앱스 스크립트가 대신 함. 앱스 스크립트 안에서 열리면 google.script.run, 깃허브 페이지에서는 주소로 부름.
+const API = "https://script.google.com/macros/s/AKfycbxDrxTmYG9_sHl-eezOzghHlPJAid3F8bsRixGYKyLyJB0Me-W8nkcgEEuTAL-LnLZZJQ/exec";
+const lookup = line => window.google?.script?.run
+  ? new Promise((ok, fail) => google.script.run.withSuccessHandler(ok).withFailureHandler(fail).search(line))
+  : fetch(API + "?q=" + encodeURIComponent(line))
+      .then(r => r.json(), () => { throw new Error("검색 서버에 연결하지 못했어요. 잠시 뒤 다시 눌러 주세요."); })
+      .catch(e => { throw e instanceof SyntaxError ? new Error("검색 서버가 응답하지 않아요. 앱스 스크립트 배포를 확인해 주세요.") : e; })
+      .then(d => { if (d.error) throw new Error(d.error); return d; });
+
+// r = 서버 결과: exact(제목이 딱 맞는 책), items(검색된 전체), title/author(서버가 나눠 본 제목·저자)
+function render(card, q, r) {
+  const exact = r.exact;
+  const shown = (exact.length ? exact : r.items).slice(0, 5);
+  const how = !exact.length || !r.author ? ""
+    : r.authorMatched ? `<p class="how">제목 ‘${esc(r.title)}’, 저자 ‘${esc(r.author)}’(으)로 찾았어요.</p>`
+    : `<p class="how">제목 ‘${esc(r.title)}’(으)로 찾았어요. 저자 ‘${esc(r.author)}’는 표기가 달라 맞춰 보지 못했어요.</p>`;
+  const stamp = exact.length ? `<div class="stamp ok">등록됨<small>${exact.length}권 일치</small></div>`
+    : r.total ? `<div class="stamp warn">확인 필요<small>비슷한 제목만</small></div>`
+    : `<div class="stamp no">없음<small>검색 결과 0건</small></div>`;
+  const list = shown.length ? `<ul class="books">${shown.map(b => `<li class="${exact.length ? "exact" : ""}">
+      <div class="bt">${esc(b.title)}</div>
+      <div class="bm"><span>${esc(b.author)}</span><span>${esc(b.publisher)}</span><span>${esc(b.kind)}</span>
+      <span class="isbn">${b.isbn ? "ISBN " + esc(b.isbn) : "ISBN 없음"}</span></div>
+      <button class="neis" data-copy="${esc(b.neis)}"><span class="txt">${esc(b.neis)}</span><span class="tag">나이스용 복사</span></button></li>`).join("")}</ul>`
+    : `<p class="empty">제목에 오타가 없는지 확인해 보세요. 띄어쓰기는 상관없어요.</p>`;
+  card.className = "card result";
+  card.innerHTML = `${stamp}<h2>${esc(q)}</h2>${how}${list}<a class="go-site" href="${SEARCH + encodeURIComponent(r.title)}" target="_blank" rel="noopener">사이트에서 직접 보기</a>`;
+}
+
+// 앱스 스크립트 화면은 iframe 안이라 clipboard API가 막힐 때가 있어서 예전 방식(execCommand)으로 한 번 더 시도
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+  const t = document.createElement("textarea");
+  t.value = text; t.setAttribute("readonly", ""); t.style.cssText = "position:fixed;opacity:0";
+  document.body.append(t); t.select();
+  let ok = false; try { ok = document.execCommand("copy"); } catch (_) {}
+  t.remove(); return ok;
+}
+
+$("out").addEventListener("click", e => {
+  const b = e.target.closest(".neis"); if (!b) return;
+  const tag = b.querySelector(".tag");
+  copyText(b.dataset.copy).then(ok => {
+    if (!ok) { getSelection().selectAllChildren(b.querySelector(".txt")); tag.textContent = "Ctrl+C를 눌러 복사하세요"; return; }
+    document.querySelectorAll(".neis.copied").forEach(x => { x.classList.remove("copied"); x.querySelector(".tag").textContent = "나이스용 복사"; });
+    b.classList.add("copied"); tag.textContent = "복사했어요. 나이스에 붙여넣으세요";
+  });
+});
+
+let running = false;
+async function go() {
+  const lines = $("q").value.split("\n").map(s => s.trim()).filter(Boolean);
+  if (running) return;
+  if (!lines.length) { $("q").focus(); return; }
+  running = true; $("go").disabled = true; $("out").innerHTML = "";
+  const cards = lines.map(q => {
+    const d = document.createElement("article"); d.className = "card result pending";
+    d.innerHTML = `<span class="wait">기다리는 중</span><h2>${esc(q)}</h2>`;
+    $("out").append(d); return d;
+  });
+  let done = 0;
+  for (let i = 0; i < lines.length; i++) {   // 사이트에 부담 주지 않게 한 권씩
+    cards[i].querySelector(".wait").textContent = "찾는 중…";
+    $("status").textContent = `${lines.length}권 중 ${i + 1}번째 찾는 중`;
+    try {
+      render(cards[i], lines[i], await lookup(lines[i]));
+      done++;
+    } catch (e) {
+      cards[i].className = "card result";
+      cards[i].querySelector(".wait").outerHTML = `<div class="stamp warn">다시 시도<small>연결 오류</small></div>`;
+      cards[i].insertAdjacentHTML("beforeend", `<p class="empty">${esc(e?.message || "사이트에 연결하지 못했어요. 찾기를 다시 눌러 주세요.")}</p>`);
+    }
+  }
+  $("status").textContent = (done === lines.length ? `${lines.length}권 모두 찾았어요.` : `${lines.length}권 중 ${done}권을 찾았어요.`)
+    + " 맞는 책의 ‘제목(저자)’ 버튼을 누르면 나이스에 넣을 글자가 복사돼요.";
+  running = false; $("go").disabled = false;
+}
+
+$("go").onclick = go;
+// Enter = 찾기, Shift+Enter = 줄바꿈. 줄바꿈 직전 이벤트(beforeinput)에서 막아서 한글 조합 중에도 글자가 잘리지 않음.
+let shift = false;
+$("q").addEventListener("keydown", e => { shift = e.shiftKey; });
+$("q").addEventListener("beforeinput", e => {
+  if ((e.inputType === "insertLineBreak" || e.inputType === "insertParagraph") && !shift) { e.preventDefault(); go(); }
+});
+</script>
+</body>
+</html>
