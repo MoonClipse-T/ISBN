@@ -53,16 +53,17 @@ main { max-width: 760px; margin: -52px auto 0; padding: 0 20px 72px; position: r
 
 /* 입력 카드: 괘선 위에 쓰기 */
 .entry { padding: 18px 22px 34px; }
-.entry label { display: block; font-family: var(--classic); font-weight: 700; font-size: 16px; padding-bottom: 8px;
+.entry-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding-bottom: 8px;
   border-bottom: 2px solid var(--rule-red); }
+.entry label { font-family: var(--classic); font-weight: 700; font-size: 16px; }
+.rules { font-size: 13.5px; color: var(--pencil); }
 textarea { display: block; width: 100%; min-height: 160px; margin: 0; padding: 0 2px; border: 0; outline: 0; resize: vertical;
   font: 500 18px/32px var(--sans); color: var(--ink); background-color: transparent;
   background-image: linear-gradient(transparent 31px, var(--rule-blue) 31px); background-size: 100% 32px; background-attachment: local; }
 textarea::placeholder { color: #b4b7bb; }
-.controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
-.keys { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--pencil); }
-kbd { font: 700 12px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid #c9ccc6;
-  border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; margin-right: 4px; }
+.controls { display: flex; justify-content: flex-end; }
+kbd { font: 700 11.5px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid #c9ccc6;
+  border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
 button#go { font: 700 16px var(--sans); padding: 12px 28px; border: 0; border-radius: 4px; cursor: pointer;
   background: var(--wood); color: var(--paper); box-shadow: inset 0 -2px 0 var(--brass); }
 button#go:hover { background: #3a2a1e; }
@@ -122,15 +123,13 @@ button#go:disabled { opacity: .5; cursor: default; }
 
 <main>
   <div class="card entry">
-    <label for="q">찾을 책</label>
-    <textarea id="q" placeholder="아몬드 손원평&#10;어린왕자 생텍쥐페리&#10;완득이" autofocus></textarea>
+    <div class="entry-head">
+      <label for="q">찾을 책</label>
+      <span class="rules">(<kbd>Enter</kbd> 바로 찾기, <kbd>Shift</kbd>+<kbd>Enter</kbd> 한 권 더 적기, 저자나 출판사는 제목 뒤에 한 칸 띄어 적기)</span>
+    </div>
+    <textarea id="q" placeholder="아몬드 손원평&#10;어린왕자 생텍쥐페리&#10;완득이 창비" autofocus></textarea>
   </div>
   <div class="controls">
-    <div class="keys">
-      <span><kbd>Enter</kbd>바로 찾기</span>
-      <span><kbd>Shift</kbd><kbd>Enter</kbd>한 권 더 적기</span>
-      <span>저자를 쓸 때는 제목과 한 칸만 띄어 주세요. 저자는 몰라도 괜찮아요.</span>
-    </div>
     <button id="go">찾기</button>
   </div>
   <div id="status" aria-live="polite"></div>
@@ -155,9 +154,9 @@ const lookup = line => window.google?.script?.run
 function render(card, q, r) {
   const exact = r.exact;
   const shown = (exact.length ? exact : r.items).slice(0, 5);
-  const how = !exact.length || !r.author ? ""
-    : r.authorMatched ? `<p class="how">제목 ‘${esc(r.title)}’, 저자 ‘${esc(r.author)}’(으)로 찾았어요.</p>`
-    : `<p class="how">제목 ‘${esc(r.title)}’(으)로 찾았어요. 저자 ‘${esc(r.author)}’는 표기가 달라 맞춰 보지 못했어요.</p>`;
+  const how = !exact.length || !r.extra ? ""
+    : r.extraMatched ? `<p class="how">제목 ‘${esc(r.title)}’에 ‘${esc(r.extra)}’까지 맞는 책을 찾았어요.</p>`
+    : `<p class="how">제목 ‘${esc(r.title)}’(으)로 찾았어요. ‘${esc(r.extra)}’는 저자나 출판사 표기와 달라 맞춰 보지 못했어요.</p>`;
   const stamp = exact.length ? `<div class="stamp ok">등록됨<small>${exact.length}권 일치</small></div>`
     : r.total ? `<div class="stamp warn">확인 필요<small>비슷한 제목만</small></div>`
     : `<div class="stamp no">없음<small>검색 결과 0건</small></div>`;

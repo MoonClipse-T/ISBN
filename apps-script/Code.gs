@@ -18,29 +18,35 @@ function doGet(e) {
 }
 
 // 페이지에서 google.script.run.search(입력한 한 줄) 로 부름.
-// "아몬드 손원평", "어린왕자 앙투안 드 생텍쥐페리", "손원평 아몬드"처럼 제목과 저자가 섞여 있어도
-// 띄어쓰기 자리마다 제목/저자로 나눠 검색해서 제목이 딱 맞는 책을 찾음.
-// 저자는 참고용: 외국 저자는 표기가 제각각(조앤 롤링 / J.K. 롤링)이라, 저자까지 맞는 후보가 없으면
-// 제목만 맞는 후보를 씀.
+// "아몬드 손원평", "완득이 창비", "아몬드 손원평 창비", "손원평 아몬드"처럼 제목 앞뒤에 저자·출판사가
+// 섞여 있어도 띄어쓰기 자리마다 [제목, 나머지]로 나눠 검색해서 제목이 딱 맞는 책을 찾음.
+// 나머지(extra)는 참고용: 낱말마다 저자나 출판사에 들어 있으면 맞는 것으로 봄. 외국 저자는 표기가
+// 제각각(조앤 롤링 / J.K. 롤링)이라, 나머지까지 맞는 후보가 없으면 제목만 맞는 후보를 씀.
 function search(line) {
   line = String(line || '').trim().slice(0, 100);
-  if (!line) return { total: 0, items: [], exact: [], title: '', author: '', authorMatched: false };
+  if (!line) return { total: 0, items: [], exact: [], title: '', extra: '', extraMatched: false };
   var cache = {}, loose = null, first = null;
   var tries = guesses_(line);
   for (var i = 0; i < tries.length; i++) {
-    var title = tries[i][0], author = tries[i][1];
+    var title = tries[i][0], extra = tries[i][1];
     var r = cache[title] || (cache[title] = titleSearch_(title));
     var hits = r.items.filter(function (b) { return norm_(b.title) === norm_(title); });
-    var both = hits.filter(function (b) { return !author || norm_(b.author).indexOf(norm_(author)) >= 0; });
-    var res = { total: r.total, items: r.items, exact: both, title: title, author: author, authorMatched: !!author };
+    var both = hits.filter(function (b) { return matchesExtra_(b, extra); });
+    var res = { total: r.total, items: r.items, exact: both, title: title, extra: extra, extraMatched: !!extra };
     if (both.length) return res;
-    if (!loose && hits.length) loose = Object.assign(res, { exact: hits, authorMatched: false });
-    if (!first && r.total) first = { total: r.total, items: r.items, exact: [], title: title, author: '', authorMatched: false };
+    if (!loose && hits.length) loose = Object.assign(res, { exact: hits, extraMatched: false });
+    if (!first && r.total) first = { total: r.total, items: r.items, exact: [], title: title, extra: '', extraMatched: false };
   }
-  return loose || first || { total: 0, items: [], exact: [], title: tries[0][0], author: '', authorMatched: false };
+  return loose || first || { total: 0, items: [], exact: [], title: tries[0][0], extra: '', extraMatched: false };
 }
 
-// [제목, 저자] 후보 목록. 입력 그대로를 제목으로 먼저 보고, 그다음 띄어쓰기 자리마다 둘로 나눠 봄.
+// "손원평 창비" → 손원평, 창비 각각이 저자나 출판사 안에 있어야 함. "(주식회사)창비"도 "창비"로 맞음.
+function matchesExtra_(b, extra) {
+  var hay = norm_(b.author + ' ' + b.publisher);
+  return extra.split(/\s+/).every(function (w) { return !norm_(w) || hay.indexOf(norm_(w)) >= 0; });
+}
+
+// [제목, 나머지(저자·출판사)] 후보 목록. 입력 그대로를 제목으로 먼저 보고, 그다음 띄어쓰기 자리마다 둘로 나눠 봄.
 // 긴 제목부터 봐야 "작은 아씨들 루이자 메이 올컷"이 "작은"이라는 다른 책으로 잘못 잡히지 않음.
 // ponytail: 띄어쓰기 없이 붙여 쓰면 저자 이름을 3글자, 2글자로만 가정. 외국 저자는 띄어 써야 찾음.
 function guesses_(line) {
